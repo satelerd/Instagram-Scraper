@@ -20,6 +20,7 @@ sleep(2)
 perfil = "nombre_perfil" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
 username = "tu_usuario" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
 clave = "tu_clave" # AQUI VA TU CLAVE DE INSTAGRAM
+nombreExcel = "Web Scraping Instagram.xlsx" # AQUI VA EL NOMBRE QUE QUIERES PARA EL ARCHIVO EXCEL ("Web Scraping Instagram.xlsx" por defecto)
 # -------------------------------------------------------
 
 
@@ -199,7 +200,7 @@ driver.quit()
 # EXCEL
 
 # Crea el file
-wb = xlsxwriter.Workbook("Web Scraping Instagram.xlsx")
+wb = xlsxwriter.Workbook(nombreExcel)
 sheet = wb.add_worksheet()
 
 # Formatos
