@@ -7,3 +7,5 @@ Con este scraper vas a poder obtener un archivo excel con datos como: seguidores
 ## Modo de uso
 
 Para usar, solo debes llenar los datos solicitados al inicio del script y listo, ya lo puedes correr!
+
+El proceso para saber que tipo de publicacion y la fecha requieren entrar a cada post de manera individual, por lo que puede llegar a tomar mucho tiempo (dependiendo en especial del internet disponible).
