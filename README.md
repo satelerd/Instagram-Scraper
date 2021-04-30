@@ -4,7 +4,7 @@ Un scraper que cree para Tzeirei Ami, y que adapte para poder hacer scrape de cu
 
 Con este scraper vas a poder obtener un archivo excel con los datos de instagram de cualquier cuenta.
 
-Datos como: seguidores, likes, fechas y links (y mas) por cada una de las publicaciones de la cuenta
+Datos como: seguidores, likes, fechas, links y más; por cada una de las publicaciones de la cuenta
 
 ## Modo de uso
 
