@@ -10,4 +10,4 @@ Datos como: seguidores, likes, fechas, links y más; por cada una de las publica
 
 Para usar, solo debes llenar los datos solicitados al inicio del script y listo, ya lo puedes correr!
 
-El proceso para saber que tipo de publicacion y la fecha requieren entrar a cada post de manera individual, por lo que puede llegar a tomar mucho tiempo (dependiendo en especial del internet disponible).
+El proceso para saber el tipo de publicacion y la fecha requiere entrar a cada post de manera individual, por lo que puede llegar a tomar unos 5 minutos (dependiendo de la velocidad de internet disponible).
