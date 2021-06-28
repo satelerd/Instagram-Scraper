@@ -7,9 +7,10 @@ import xlsxwriter
 
 # AQUI DEBES LLENAR LOS DATOS
 # -------------------------------------------------------
-profile = "" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
-username = "" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-password = "" # AQUI VA TU CLAVE DE INSTAGRAM
+profile = "teletrece" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
+username = "sateler" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
+password = "sat10920" # AQUI VA TU CLAVE DE INSTAGRAM
+n_post = 50 # AQUI VA LA CANTIDAD DE PUBLICACIONES A LAS QUE SE QUIERE HACER SCRAPE
 PATH = "C:\Program Files (x86)\chromedriver.exe"  # Direccion de donde tienes instalado el driver en tu computador
 # -------------------------------------------------------
 
@@ -81,6 +82,7 @@ def post_to_post(lenpost):
     links = []
     likes = []
     comments = []
+    cont_post = 1
     repetitions = int((lenpost * 2) / 36) - 1
     print(repetitions)
 
@@ -88,6 +90,7 @@ def post_to_post(lenpost):
         selenium_code_links = driver.find_elements_by_tag_name("a")  # Te entrega los links pero en formato selenium
         selenium_code_links = driver.find_elements_by_tag_name("a")
 
+        
         # Links y Likes
         for publicacion in selenium_code_links:
             link = publicacion.get_attribute("href")  # Lo pasa a formato html y lo appendea a links_total
@@ -103,9 +106,24 @@ def post_to_post(lenpost):
                 # Likes
                 hover = ActionChains(driver).move_to_element(publicacion)
                 hover.perform()
+
+                print(f"publicacion {cont_post}")
+                cont_post += 1
+                
                 code = driver.find_elements_by_class_name("-V_eO")
+
+                print(code)
+                
                 likes.append(code[0].text)
                 comments.append(code[1].text)
+
+                if cont_post == n_post:
+                    print("se llego a limite")
+                    break
+
+        if cont_post == n_post:
+            print("se llego a limite")
+            break
      
         # Scroll
         html = driver.find_element_by_tag_name('html')
@@ -200,7 +218,7 @@ sheet.write(1, 10, seguidos_tz, border1)
 for i in range(len(links_tz)):
     sheet.write(i + row, 0, "tzeireiami", color_tz)  # Cuenta
     sheet.write(i + row, 1, aria_label_tz[i], border1)  # Tipo de post
-    sheet.write(i + row, 2, int(likes_tz[i]), border1)  # Likes
+    sheet.write(i + row, 2, likes_tz[i], border1)  # Likes
     sheet.write(i + row, 3, int(comments_tz[i]), border1)  # comments
     sheet.write(i + row, 4, dates[i], border1)  # Fecha
     sheet.write(i + row, 5, links_tz[i], border1)  # Links
