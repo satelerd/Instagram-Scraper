@@ -21,6 +21,19 @@ url = f"https://www.instagram.com"
 driver.get(url)  # Abre Chrome con la pagina del url
 sleep(2)
 
+<<<<<<< HEAD
+=======
+
+# AQUI DEBES LLENAR LOS DATOS
+# -------------------------------------------------------
+perfil = "nombre_perfil" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
+username = "tu_usuario" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
+clave = "tu_clave" # AQUI VA TU CLAVE DE INSTAGRAM
+nombreExcel = "Web Scraping Instagram.xlsx" # AQUI VA EL NOMBRE QUE QUIERES PARA EL ARCHIVO EXCEL ("Web Scraping Instagram.xlsx" por defecto)
+# -------------------------------------------------------
+
+
+>>>>>>> 61d13250ccb1b499e8897793da2514e607af06a0
 # Inicia sesíon
 usuario = driver.find_element_by_name("username")
 usuario.send_keys(username)  
@@ -197,7 +210,7 @@ driver.quit()
 # EXCEL
 
 # Crea el file
-wb = xlsxwriter.Workbook("Web Scraping Instagram.xlsx")
+wb = xlsxwriter.Workbook(nombreExcel)
 sheet = wb.add_worksheet()
 
 # Formatos
