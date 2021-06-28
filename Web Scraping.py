@@ -7,58 +7,46 @@ import xlsxwriter
 
 # AQUI DEBES LLENAR LOS DATOS
 # -------------------------------------------------------
-perfil = "nombre_perfil" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
-username = "tu_usuario" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-clave = "tu_clave" # AQUI VA TU CLAVE DE INSTAGRAM
+profile = "teletrece" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
+username = "sateler" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
+password = "sat10920" # AQUI VA TU CLAVE DE INSTAGRAM
+PATH = "C:\Program Files (x86)\chromedriver.exe"  # Direccion de donde tienes instalado el driver en tu computador
 # -------------------------------------------------------
 
 # WEB SCRAPING
 tiempo1 = time.time()
-PATH = "C:\Program Files (x86)\chromedriver.exe"  # Direccion de donde tengo instalado el driver en mi computador
+
 driver = webdriver.Chrome(PATH)  # Usar el driver en Chrome
 
 url = f"https://www.instagram.com"
 driver.get(url)  # Abre Chrome con la pagina del url
 sleep(2)
 
-<<<<<<< HEAD
-=======
-
-# AQUI DEBES LLENAR LOS DATOS
-# -------------------------------------------------------
-perfil = "nombre_perfil" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
-username = "tu_usuario" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-clave = "tu_clave" # AQUI VA TU CLAVE DE INSTAGRAM
-nombreExcel = "Web Scraping Instagram.xlsx" # AQUI VA EL NOMBRE QUE QUIERES PARA EL ARCHIVO EXCEL ("Web Scraping Instagram.xlsx" por defecto)
-# -------------------------------------------------------
-
-
->>>>>>> 61d13250ccb1b499e8897793da2514e607af06a0
 # Inicia sesíon
-usuario = driver.find_element_by_name("username")
-usuario.send_keys(username)  
-contrasena = driver.find_element_by_name("password")
-contrasena.send_keys(clave)  
-contrasena.send_keys(Keys.RETURN)  # Apreta enter
+user = driver.find_element_by_name("username")
+user.send_keys(username)  
+pwd = driver.find_element_by_name("password")
+pwd.send_keys(password)  
+pwd.send_keys(Keys.RETURN)  # Apreta enter
 sleep(5)
 
-
+# FUNCIONES
 # Busca el perfil
-def buscador(perfilx):
-    driver.get(f"https://www.instagram.com/{perfilx}/")
+def finder(profilex):
+    driver.get(f"https://www.instagram.com/{profilex}/")
 
 
 # Obtiene el numero de seguidores de la cuenta
 def topbar():
     selenium_code_lenpost = driver.find_elements_by_class_name("g47SY ")
 
-    elementos = []
-    for elemento in selenium_code_lenpost:
-        elementos.append(elemento.text)
+    elements = []
+    for element in selenium_code_lenpost:
+        elements.append(element.text)
 
     # Cantidad de publicaciones
     lenpost = ""
-    for num in elementos[0]:  # Para poder borrar la coma
+    for num in elements[0]:  # Para poder borrar la coma
         if num != ",":
             lenpost += num
         else:
@@ -66,52 +54,41 @@ def topbar():
     lenpost = int(lenpost)
 
     # Cantidad de seguidores
-    n_seguidores = ""
-    for num in elementos[1]:  # Para poder borrar la coma
+    n_followers = ""
+    for num in elements[1]:  # Para poder borrar la coma
         if num != ",":
-            n_seguidores += num
+            n_followers += num
         else:
             continue
-    n_seguidores = int(n_seguidores)
 
     # Cantidad de seguidos
-    n_seguidos = ""
-    for num in elementos[2]:  # Para poder borrar la coma
+    n_follows = ""
+    for num in elements[2]:  # Para poder borrar la coma
         if num != ",":
-            n_seguidos += num
+            n_follows += num
         else:
             continue
-    n_seguidos = int(n_seguidos)
+    n_follows = int(n_follows)
 
-    return lenpost, n_seguidores, n_seguidos
+    return lenpost, n_followers, n_follows
 
 
 # Consigue los links, likes y fecha de cada publicacion
-def post_a_post(lenpost):
+def post_to_post(lenpost):
     # selenium_code_fechas = driver.find_elements_by_tag_name("img")  # Te entrega los links pero en formato selenium
 
     # Variables
     links = []
     likes = []
-    aria_label = []
-    comentarios = []
-    repeticiones = int((lenpost * 2) / 36) - 1
+    comments = []
+    repetitions = int((lenpost * 2) / 36) - 1
+    print(repetitions)
 
-    for i in range(repeticiones):
+    for i in range(repetitions):
+        print("y a este for?")
         selenium_code_links = driver.find_elements_by_tag_name("a")  # Te entrega los links pero en formato selenium
-        selenium_code_arealabel = driver.find_elements_by_tag_name("span")
         selenium_code_links = driver.find_elements_by_tag_name("a")
-        aria_label_repeticiones = []
-        cont = 0
-
-        """# Aria label primera parte
-        for i in selenium_code_arealabel:
-            aria_label_act = i.get_attribute("aria-label")
-            if aria_label_act is None or aria_label_act == 'Siguiendo' or aria_label_act == 'Relaciones':
-                continue
-            else:
-                aria_label_repeticiones.append(aria_label_act)
-        print("arialabelrepeticiones: ", aria_label_repeticiones)"""
+        print("o aqui tenemos el problemilla vdd?")
 
         # Links y Likes
         for publicacion in selenium_code_links:
@@ -130,33 +107,20 @@ def post_a_post(lenpost):
                 hover.perform()
                 code = driver.find_elements_by_class_name("-V_eO")
                 likes.append(code[0].text)
-                comentarios.append(code[1].text)
+                comments.append(code[1].text)
 
-                """# Aria label segunda parte
-                todopost = publicacion.find_elements_by_class_name("eLAPa")  # Todos los post tienen esta class
-
-                try:
-                    especiales = publicacion.find_element_by_class_name("u7YqG")  # Solo los post que son distintos a una foto tienen esta class
-                    print("try: ", especiales)
-                except:
-                    especiales = None
-
-                if especiales is None:
-                    aria_label.append("Foto")
-                else:
-                    aria_label.append("especiales")  # aca me gustaria hacer append del tipo de post que es..."""
-
+        print("y este scroll?")       
         # Scroll
         html = driver.find_element_by_tag_name('html')
         html.send_keys(Keys.END)
         sleep(2)
 
-    return links, likes, comentarios
+    return links, likes, comments
 
 
 # Abre una pestaña para cada publicacion
-def pestana(links):
-    fechas = []
+def tab(links):
+    dates = []
     aria_label = []
 
     for link in links:
@@ -166,7 +130,7 @@ def pestana(links):
 
         # Fechas
         selenium_code = driver.find_element_by_tag_name("time")  # Te entrega los datos pero en formato selenium
-        fechas.append(selenium_code.get_attribute("title"))  # Lo pasa a formato html y lo appendea a fechas
+        dates.append(selenium_code.get_attribute("title"))  # Lo pasa a formato html y lo appendea a fechas
 
         # Aria label
         try:
@@ -177,40 +141,34 @@ def pestana(links):
 
         driver.close()
         driver.switch_to.window(driver.window_handles[0])
-    return fechas, aria_label
+    return dates, aria_label
+
+# FIN DE FUNCIONES
 
 
-# def tzeirei():
-
-
-# Data
-buscador(perfil)
+# DATA
+finder(profile)
 lenpost_tz, seguidores_tz, seguidos_tz = topbar()
-links_tz, likes_tz, comentarios_tz = post_a_post(lenpost_tz)
-fechas_tz, aria_label_tz = pestana(links_tz)
+links_tz, likes_tz, comments_tz = post_to_post(lenpost_tz)
+dates, aria_label_tz = tab(links_tz)
 
 # Prints
-print(f"{perfil} tiene {lenpost_tz} publicaciones")
-print(f"{perfil} tiene {seguidores_tz} seguidores")
-print(f"{perfil} tiene {seguidos_tz} seguidos")
-print(f"Los links de los post de {perfil} son: {links_tz}")
-print(len(links_tz))
-print(f"los likes de los post de {perfil} son: {likes_tz}")
-print(len(aria_label_tz))
-print(f"El numero de comentarios por cada post de {perfil} son: {comentarios_tz}")
-print(f"la fecha de los post son: {fechas_tz}")
-print(f"El area label de por cada post de {perfil} son: {aria_label_tz}")
-print(len(aria_label_tz))
-
-print()
-print()
+print(f"{lenpost_tz} publicaciones")
+print(f"{seguidores_tz} seguidores")
+print(f"{seguidos_tz} seguidos")
+print(f"Los links de los post son: {links_tz}")
+print(f"los likes de los post son: {likes_tz}")
+print(f"El numero de comments por cada post son: {comments_tz}")
+print(f"la fecha de los post son: {dates}")
+print(f"El area label de por cada post son: {aria_label_tz}")
 
 driver.quit()
+# FIN DEL SCRAPE
+
 
 # EXCEL
-
 # Crea el file
-wb = xlsxwriter.Workbook(nombreExcel)
+wb = xlsxwriter.Workbook("Web Scraping Instagram.xlsx")
 sheet = wb.add_worksheet()
 
 # Formatos
@@ -222,7 +180,7 @@ border2 = wb.add_format({"border": 2})
 sheet.write(0, 0, "Cuenta", border2)
 sheet.write(0, 1, "Tipo de post", border2)
 sheet.write(0, 2, "Likes", border2)
-sheet.write(0, 3, "Comentarios", border2)
+sheet.write(0, 3, "comments", border2)
 sheet.write(0, 4, "Fecha", border2)
 sheet.write(0, 5, "Link", border2)
 
@@ -246,8 +204,8 @@ for i in range(len(links_tz)):
     sheet.write(i + row, 0, "tzeireiami", color_tz)  # Cuenta
     sheet.write(i + row, 1, aria_label_tz[i], border1)  # Tipo de post
     sheet.write(i + row, 2, int(likes_tz[i]), border1)  # Likes
-    sheet.write(i + row, 3, int(comentarios_tz[i]), border1)  # Comentarios
-    sheet.write(i + row, 4, fechas_tz[i], border1)  # Fecha
+    sheet.write(i + row, 3, int(comments_tz[i]), border1)  # comments
+    sheet.write(i + row, 4, dates[i], border1)  # Fecha
     sheet.write(i + row, 5, links_tz[i], border1)  # Links
 row += len(links_tz)
 
@@ -255,4 +213,4 @@ wb.close()
 
 tiempo2 = time.time()
 
-print(f"Fueron: {tiempo2 - tiempo1}")
+print(f"Fueron: {int(tiempo2 - tiempo1)} segundos")
