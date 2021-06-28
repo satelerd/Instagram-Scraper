@@ -7,9 +7,9 @@ import xlsxwriter
 
 # AQUI DEBES LLENAR LOS DATOS
 # -------------------------------------------------------
-profile = "teletrece" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
-username = "sateler" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-password = "sat10920" # AQUI VA TU CLAVE DE INSTAGRAM
+profile = "" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
+username = "" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
+password = "" # AQUI VA TU CLAVE DE INSTAGRAM
 PATH = "C:\Program Files (x86)\chromedriver.exe"  # Direccion de donde tienes instalado el driver en tu computador
 # -------------------------------------------------------
 
@@ -85,10 +85,8 @@ def post_to_post(lenpost):
     print(repetitions)
 
     for i in range(repetitions):
-        print("y a este for?")
         selenium_code_links = driver.find_elements_by_tag_name("a")  # Te entrega los links pero en formato selenium
         selenium_code_links = driver.find_elements_by_tag_name("a")
-        print("o aqui tenemos el problemilla vdd?")
 
         # Links y Likes
         for publicacion in selenium_code_links:
@@ -108,8 +106,7 @@ def post_to_post(lenpost):
                 code = driver.find_elements_by_class_name("-V_eO")
                 likes.append(code[0].text)
                 comments.append(code[1].text)
-
-        print("y este scroll?")       
+     
         # Scroll
         html = driver.find_element_by_tag_name('html')
         html.send_keys(Keys.END)
