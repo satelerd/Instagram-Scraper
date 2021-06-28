@@ -5,6 +5,13 @@ from time import sleep
 import time
 import xlsxwriter
 
+# AQUI DEBES LLENAR LOS DATOS
+# -------------------------------------------------------
+perfil = "nombre_perfil" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
+username = "tu_usuario" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
+clave = "tu_clave" # AQUI VA TU CLAVE DE INSTAGRAM
+# -------------------------------------------------------
+
 # WEB SCRAPING
 tiempo1 = time.time()
 PATH = "C:\Program Files (x86)\chromedriver.exe"  # Direccion de donde tengo instalado el driver en mi computador
@@ -13,15 +20,6 @@ driver = webdriver.Chrome(PATH)  # Usar el driver en Chrome
 url = f"https://www.instagram.com"
 driver.get(url)  # Abre Chrome con la pagina del url
 sleep(2)
-
-
-# AQUI DEBES LLENAR LOS DATOS
-# -------------------------------------------------------
-perfil = "nombre_perfil" # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
-username = "tu_usuario" # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-clave = "tu_clave" # AQUI VA TU CLAVE DE INSTAGRAM
-# -------------------------------------------------------
-
 
 # Inicia sesíon
 usuario = driver.find_element_by_name("username")
