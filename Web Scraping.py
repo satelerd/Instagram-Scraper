@@ -7,10 +7,10 @@ import xlsxwriter
 
 # AQUI DEBES LLENAR LOS DATOS
 # -------------------------------------------------------
-profile = ""    # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
-username = ""   # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-password = ""   # AQUI VA TU CLAVE DE INSTAGRAM
-n_post = 5  # AQUI VA LA CANTIDAD DE PUBLICACIONES A LAS QUE SE QUIERE HACER SCRAPE (ej. si pongo 50, va a hacer scrape en las ultimas 50 publicaciones)
+profile = "santiagoadicto"    # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
+username = "sateler"   # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
+password = "sat10920"   # AQUI VA TU CLAVE DE INSTAGRAM
+n_post = 50  # AQUI VA LA CANTIDAD DE PUBLICACIONES A LAS QUE SE QUIERE HACER SCRAPE (ej. si pongo 50, va a hacer scrape en las ultimas 50 publicaciones)
 
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"    # Direccion de donde tienes instalado el driver en tu computador
@@ -179,7 +179,7 @@ driver.quit()
 
 # EXCEL
 # Crea el file
-wb = xlsxwriter.Workbook(f"{wb_PATH}Ws_IG - {profile}.xlsx")
+wb = xlsxwriter.Workbook(f"{wb_PATH}Ws_{profile}.xlsx")
 sheet = wb.add_worksheet()
 
 # Formatos
