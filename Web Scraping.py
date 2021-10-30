@@ -9,7 +9,7 @@ import xlsxwriter
 # -------------------------------------------------------
 profile = "santiagoadicto"    # AQUI VA EL NOMBRE DEL PERFIL QUE QUIERES HACER SCRAPE (sin @)
 username = "sateler"   # AQUI VA TU NOMBRE DE USUARIO DE INSTAGRAM
-password = "sat10920"   # AQUI VA TU CLAVE DE INSTAGRAM
+password = ""   # AQUI VA TU CLAVE DE INSTAGRAM
 n_post = 50  # AQUI VA LA CANTIDAD DE PUBLICACIONES A LAS QUE SE QUIERE HACER SCRAPE (ej. si pongo 50, va a hacer scrape en las ultimas 50 publicaciones)
 
 
