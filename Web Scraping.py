@@ -154,6 +154,53 @@ def tab(links):
         driver.switch_to.window(driver.window_handles[0])
     return dates, aria_label
 
+
+# Crea el excel
+def excel():
+    # Crea el archivo
+    wb = xlsxwriter.Workbook(f"{wb_PATH}Ws_{profile}.xlsx")
+    sheet = wb.add_worksheet()
+
+    # Formatos
+    bg_color = wb.add_format({"bg_color": "#0099FF", "border": 2})
+    border1 = wb.add_format({"border": 1})
+    border2 = wb.add_format({"border": 2})
+
+    # Creamos las pestañas de tipo de datos
+    sheet.write(0, 0, "Tipo de post", border2)
+    sheet.write(0, 1, "Likes", border2)
+    sheet.write(0, 2, "comments", border2)
+    sheet.write(0, 3, "Fecha", border2)
+    sheet.write(0, 4, "Link", border2)
+
+    # Numero de post, seguidores y seguidos
+    sheet.write(0, 8, "Publicaciones", border2)
+    sheet.write(0, 9, "Seguidores", border2)
+    sheet.write(0, 10, "seguidos", border2)
+
+    sheet.write(1, 7, f"{profile}", bg_color)
+
+    # Rows
+    row = 1
+
+    sheet.write(1, 8, lenpost_prf, border1)
+    sheet.write(1, 9, seguidores_prf, border1)
+    sheet.write(1, 10, seguidos_prf, border1)
+
+    for i in range(len(links_prf)):
+        sheet.write(i + row, 0, aria_label_prf[i], border1)  # Tipo de post
+        sheet.write(i + row, 1, likes_prf[i], border1)  # Likes
+        sheet.write(i + row, 2, comments_prf[i], border1)  # comments
+        sheet.write(i + row, 3, dates_prf[i], border1)  # Fecha
+        sheet.write(i + row, 4, links_prf[i], border1)  # Links
+    row += len(links_prf)
+
+    wb.close()
+
+    time2 = time.time()
+    return (f"Fueron: {int(time2 - time1)} segundos")
+
+
 # FIN DE FUNCIONES
 
 
@@ -174,49 +221,7 @@ print(f"la fecha de los post son: {dates_prf}")
 print(f"El area label de por cada post son: {aria_label_prf}")
 
 driver.quit()
-# FIN DEL SCRAPE
-
 
 # EXCEL
-# Crea el file
-wb = xlsxwriter.Workbook(f"{wb_PATH}Ws_{profile}.xlsx")
-sheet = wb.add_worksheet()
-
-# Formatos
-bg_color = wb.add_format({"bg_color": "#0099FF", "border": 2})
-border1 = wb.add_format({"border": 1})
-border2 = wb.add_format({"border": 2})
-
-# Creamos las pestañas de tipo de datos
-sheet.write(0, 0, "Tipo de post", border2)
-sheet.write(0, 1, "Likes", border2)
-sheet.write(0, 2, "comments", border2)
-sheet.write(0, 3, "Fecha", border2)
-sheet.write(0, 4, "Link", border2)
-
-# Numero de post, seguidores y seguidos
-sheet.write(0, 8, "Publicaciones", border2)
-sheet.write(0, 9, "Seguidores", border2)
-sheet.write(0, 10, "seguidos", border2)
-
-sheet.write(1, 7, f"{profile}", bg_color)
-
-# Rows
-row = 1
-
-sheet.write(1, 8, lenpost_prf, border1)
-sheet.write(1, 9, seguidores_prf, border1)
-sheet.write(1, 10, seguidos_prf, border1)
-
-for i in range(len(links_prf)):
-    sheet.write(i + row, 0, aria_label_prf[i], border1)  # Tipo de post
-    sheet.write(i + row, 1, likes_prf[i], border1)  # Likes
-    sheet.write(i + row, 2, comments_prf[i], border1)  # comments
-    sheet.write(i + row, 3, dates_prf[i], border1)  # Fecha
-    sheet.write(i + row, 4, links_prf[i], border1)  # Links
-row += len(links_prf)
-
-wb.close()
-
-time2 = time.time()
-print(f"Fueron: {int(time2 - time1)} segundos")
+xls = excel()
+print(xls)
